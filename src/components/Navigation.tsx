@@ -70,22 +70,24 @@ export function Navigation({ title, showBackButton = true }: NavigationProps) {
 
   return (
     <header className="bg-slate-800 shadow border-b border-slate-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="flex items-center space-x-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+        <div className="flex justify-between items-center py-3 sm:py-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <div>
-              <h1 className="text-2xl font-bold text-slate-50">{title}</h1>
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-50">
+                {title}
+              </h1>
               {isDashboard && user && (
-                <p className="text-sm text-slate-400">
+                <p className="text-xs sm:text-sm text-slate-400">
                   Bem-vindo, {user.name} (@{user.nickname})
                 </p>
               )}
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            {/* Navegação horizontal */}
-            <nav className="flex space-x-2">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Navegação horizontal - Hidden on mobile, shown on larger screens */}
+            <nav className="hidden lg:flex space-x-2">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -101,23 +103,39 @@ export function Navigation({ title, showBackButton = true }: NavigationProps) {
                     )}
                   >
                     <Icon className="w-4 h-4" />
-                    <span className="hidden sm:inline">{item.name}</span>
+                    <span>{item.name}</span>
                   </Button>
                 );
               })}
             </nav>
 
+            {/* Mobile Navigation - Dropdown menu for smaller screens */}
+            <div className="lg:hidden">
+              <select
+                onChange={(e) => router.push(e.target.value)}
+                value={pathname}
+                className="bg-slate-700 border border-slate-600 text-slate-300 rounded-md px-3 py-1 text-sm"
+              >
+                {navigationItems.map((item) => (
+                  <option key={item.href} value={item.href}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Badge de Admin e botão de logout */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               {user?.role === "ADMIN" && (
-                <span className="bg-blue-900 text-blue-200 text-xs font-semibold px-2.5 py-0.5 rounded">
+                <span className="bg-blue-900 text-blue-200 text-xs font-semibold px-2 sm:px-2.5 py-0.5 rounded">
                   Admin
                 </span>
               )}
               <Button
                 variant="destructive"
                 onClick={handleLogout}
-                className="flex items-center space-x-2 text-sm"
+                size="sm"
+                className="flex items-center space-x-1 sm:space-x-2 text-sm px-2 sm:px-3"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Sair</span>

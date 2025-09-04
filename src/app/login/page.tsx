@@ -113,21 +113,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-3 sm:p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-sm sm:max-w-md">
         <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm shadow-2xl">
-          <CardHeader className="text-center space-y-4 pb-6">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-pink-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <Film className="w-8 h-8 text-white" />
+          <CardHeader className="text-center space-y-3 sm:space-y-4 pb-4 sm:pb-6 px-4 sm:px-6">
+            <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-pink-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <Film className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-white">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-white">
                 {isLogin ? "Bem-vindo de volta!" : "Crie sua conta"}
               </CardTitle>
-              <CardDescription className="text-slate-400 mt-2">
+              <CardDescription className="text-slate-400 mt-2 text-sm">
                 {isLogin
                   ? "Entre na sua conta do LMS Films"
                   : "Junte-se à nossa comunidade de cinéfilos"}
@@ -135,12 +135,15 @@ export default function LoginPage() {
             </div>
           </CardHeader>
 
-          <CardContent className="space-y-4">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-3 sm:space-y-4"
+            >
               {!isLogin && (
                 <>
                   {/* Nome */}
-                  <div className="space-y-2">
+                  <div className="space-y-1 sm:space-y-2">
                     <Label
                       htmlFor="name"
                       className="text-slate-300 text-sm font-medium"
@@ -156,7 +159,7 @@ export default function LoginPage() {
                         })}
                         type="text"
                         placeholder="Seu nome completo"
-                        className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500 focus:ring-pink-500/20"
+                        className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500 focus:ring-pink-500/20 h-10 sm:h-11"
                       />
                     </div>
                     {errors.name && (
@@ -167,7 +170,7 @@ export default function LoginPage() {
                   </div>
 
                   {/* Nickname */}
-                  <div className="space-y-2">
+                  <div className="space-y-1 sm:space-y-2">
                     <Label
                       htmlFor="nickname"
                       className="text-slate-300 text-sm font-medium"
@@ -183,7 +186,7 @@ export default function LoginPage() {
                         })}
                         type="text"
                         placeholder="Como quer ser chamado"
-                        className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500 focus:ring-pink-500/20"
+                        className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-pink-500 focus:ring-pink-500/20 h-10 sm:h-11"
                       />
                     </div>
                     {errors.nickname && (
@@ -196,7 +199,7 @@ export default function LoginPage() {
               )}
 
               {/* Email */}
-              <div className="space-y-2">
+              <div className="space-y-1 sm:space-y-2">
                 <Label
                   htmlFor="email"
                   className="text-slate-300 text-sm font-medium"

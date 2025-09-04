@@ -56,6 +56,9 @@ export default function MoviesPage() {
       return;
     }
 
+    // Limpar cache de favoritos sempre que a página for carregada
+    setFavoriteStatus({});
+
     // Carregar filmes populares iniciais
     loadPopularMovies(1);
   }, [router]);
@@ -199,12 +202,16 @@ export default function MoviesPage() {
     try {
       console.log("Tentando alterar favorito para filme:", movieId);
       await favoriteMoviesApi.toggleFavorite(movieId.toString());
-      const newStatus = !favoriteStatus[movieId];
-      setFavoriteStatus((prev) => ({ ...prev, [movieId]: newStatus }));
 
-      console.log("Status alterado com sucesso:", newStatus);
+      // Buscar o status atualizado diretamente do servidor para garantir consistência
+      const updatedStatus = await favoriteMoviesApi.getFavoriteStatus(
+        movieId.toString()
+      );
+      setFavoriteStatus((prev) => ({ ...prev, [movieId]: updatedStatus }));
+
+      console.log("Status alterado com sucesso:", updatedStatus);
       toast.success(
-        newStatus
+        updatedStatus
           ? "Filme adicionado aos favoritos!"
           : "Filme removido dos favoritos!"
       );
@@ -306,17 +313,17 @@ export default function MoviesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
         {/* Search Section */}
-        <Card className="mb-8 bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-white flex items-center space-x-2">
-              <Search className="w-5 h-5 text-blue-400" />
+        <Card className="mb-6 sm:mb-8 bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="text-white flex items-center space-x-2 text-lg sm:text-xl">
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
               <span>Buscar Filmes</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex space-x-3">
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
               <div className="flex-1 relative">
                 <Input
                   placeholder="Digite o nome do filme..."
@@ -465,11 +472,11 @@ export default function MoviesPage() {
         </Card>
 
         {/* Grid de filmes */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
           {(isSearchMode ? searchResults : movies).map((movie, index) => (
             <div
               key={`${movie.id}-${index}`}
-              className="group transition-all duration-300 hover:scale-[1.02]"
+              className="group transition-all duration-300 hover:scale-[1.02] touch-friendly"
             >
               <MovieCard
                 movie={movie}

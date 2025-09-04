@@ -57,6 +57,9 @@ export default function SeriesPage() {
       return;
     }
 
+    // Limpar cache de favoritos sempre que a página for carregada
+    setFavoriteStatus({});
+
     // Carregar séries populares iniciais
     loadPopularSeries(1);
   }, [router]);
@@ -182,12 +185,16 @@ export default function SeriesPage() {
     try {
       console.log("Tentando alterar favorito para série:", serieId);
       await favoriteSeriesApi.toggleFavorite(serieId.toString());
-      const newStatus = !favoriteStatus[serieId];
-      setFavoriteStatus((prev) => ({ ...prev, [serieId]: newStatus }));
 
-      console.log("Status alterado com sucesso:", newStatus);
+      // Buscar o status atualizado diretamente do servidor para garantir consistência
+      const updatedStatus = await favoriteSeriesApi.getFavoriteStatus(
+        serieId.toString()
+      );
+      setFavoriteStatus((prev) => ({ ...prev, [serieId]: updatedStatus }));
+
+      console.log("Status alterado com sucesso:", updatedStatus);
       toast.success(
-        newStatus
+        updatedStatus
           ? "Série adicionada aos favoritos!"
           : "Série removida dos favoritos!"
       );

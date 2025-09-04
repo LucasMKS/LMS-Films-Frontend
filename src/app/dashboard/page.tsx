@@ -115,26 +115,31 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Navigation Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
           <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
-            <CardHeader className="pb-3">
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
-                  <Film className="w-6 h-6 text-blue-400" />
+            <CardHeader className="pb-2 sm:pb-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                  <Film className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg text-white">Filmes</CardTitle>
-                  <CardDescription>Descobrir e avaliar</CardDescription>
+                  <CardTitle className="text-base sm:text-lg text-white">
+                    Filmes
+                  </CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">
+                    Descobrir e avaliar
+                  </CardDescription>
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <Button
                 onClick={() => router.push("/movies")}
-                className="w-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border-blue-500/20 cursor-pointer"
+                className="w-full bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border-blue-500/20 cursor-pointer text-sm"
                 variant="outline"
+                size="sm"
               >
                 Explorar filmes
               </Button>
