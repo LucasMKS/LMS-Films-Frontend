@@ -4,7 +4,9 @@ import { ErrorHandler } from "./errorHandler";
 import { toast } from "sonner";
 
 // Configuração base da API
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://lms-filmes-backend-latest.onrender.com";
 
 // Instância do axios
 const api = axios.create({

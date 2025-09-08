@@ -3,7 +3,9 @@ import Cookies from "js-cookie";
 import { ErrorHandler } from "./errorHandler";
 
 // Configuração base da API
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://lms-filmes-backend-latest.onrender.com";
 
 // Função alternativa para toast até o Sonner ser instalado
 const showToast = (
